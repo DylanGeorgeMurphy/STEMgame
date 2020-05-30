@@ -16,4 +16,20 @@ void player::update() {
 	if (movingRight)xPos += vel;
 };
 
+int player::getXTile() {
+	return(floor(xPos));
+}
+
+int player::getYTile() {
+	return(floor(yPos));
+}
+
+float player::getXOff() {
+	return(xPos-floor(xPos));
+}
+
+float player::getYOff() {
+	return(yPos-floor(yPos));
+}
+
 

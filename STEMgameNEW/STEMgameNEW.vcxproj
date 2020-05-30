@@ -152,6 +152,12 @@
     <ClInclude Include="src\textures.h" />
     <ClInclude Include="src\tiles.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Tiles.txt">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </Text>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

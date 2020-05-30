@@ -1,82 +1,79 @@
 #include"inputHandler.h"
 
-void inputHandler::bindWDown(command* w) { wDown = w; }
-void inputHandler::bindSDown(command* s) { sDown = s; }
-void inputHandler::bindADown(command* a) { aDown = a; }
-void inputHandler::bindDDown(command* d) { dDown = d; }
-void inputHandler::bindWUp(command* w) { wUp = w; }
-void inputHandler::bindSUp(command* s) { sUp = s; }
-void inputHandler::bindAUp(command* a) { aUp = a; }
-void inputHandler::bindDUp(command* d) { dUp = d; }
 
 void inputHandler::handleInputs() {
 	SDL_Event event;
-	SDL_PollEvent(&event);
-	switch (event.type) {
-	case SDL_KEYDOWN:
-		switch (event.key.keysym.sym) {
-		case SDLK_w:
-			wDown->execute();
+	while(SDL_PollEvent(&event)!=0) {
+
+		switch (event.type) {
+		case SDL_KEYDOWN:
+			switch (event.key.keysym.sym) {
+			case SDLK_w:
+				controls->wDown->execute();
+				break;
+			case SDLK_s:
+				controls->sDown->execute();
+				break;
+			case SDLK_a:
+				controls->aDown->execute();
+				break;
+			case SDLK_d:
+				controls->dDown->execute();
+				break;
+			}
 			break;
-		case SDLK_s:
-			sDown->execute();
+
+		case SDL_KEYUP:
+			switch (event.key.keysym.sym) {
+			case SDLK_w:
+				controls->wUp->execute();
+				break;
+			case SDLK_s:
+				controls->sUp->execute();
+				break;
+			case SDLK_a:
+				controls->aUp->execute();
+				break;
+			case SDLK_d:
+				controls->dUp->execute();
+				break;
+			}
 			break;
-		case SDLK_a:
-			aDown->execute();
-			break;
-		case SDLK_d:
-			dDown->execute();
+
+
+		case SDL_QUIT:
+			closed = true;
 			break;
 		}
-		break;
-
-	case SDL_QUIT:
-		closed = true;
-		break;
 	}
-
 }
 
-inputHandler::inputHandler() { closed = false; }
+void inputHandler::setControls(controlScheme* c) {
+	controls = c;
+}
+
+inputHandler::inputHandler() : closed(false) {}
 
 bool inputHandler::getClosed() { return closed; }
 
-void startUpCommand::execute() {
-	target->movingUp = true;
-}
-startUpCommand::startUpCommand(player* p):target(p){};
+controlScheme::controlScheme() :
+	wDown(NULL),
+	sDown(NULL),
+	aDown(NULL),
+	dDown(NULL),
+	wUp(NULL),
+	sUp(NULL),
+	aUp(NULL),
+	dUp(NULL)
+{};
 
-void startDownCommand::execute() {
-	target->movingDown = true;
+controlScheme::~controlScheme() {
+	delete wUp;
+	delete sUp;
+	delete aUp;
+	delete dUp;
+	delete wDown;
+	delete sDown;
+	delete aDown;
+	delete dDown;
 }
-startDownCommand::startDownCommand(player* p) :target(p) {};
-
-void startLeftCommand::execute() {
-	target->movingLeft = true;
-}
-startLeftCommand::startLeftCommand(player* p) :target(p) {};
-
-void startRightCommand::execute() {
-	target->movingRight = true;
-}
-startRightCommand::startRightCommand(player* p) :target(p) {};
-
-void stopUpCommand::execute() {
-	target->movingUp = true;
-}
-stopUpCommand::stopUpCommand(player* p) :target(p) {};
-
-void stopDownCommand::execute() {
-	target->movingDown = true;
-}
-stopDownCommand::stopDownCommand(player* p) :target(p) {};
-
-void stopLeftCommand::execute() {
-	target->movingLeft = true;
-}
-stopLeftCommand::stopLeftCommand(player* p) :target(p) {};
-
-void stopRightCommand::execute() {
-	target->movingRight = true;
-}
-stopRightCommand::stopRightCommand(player* p) :target(p) {};

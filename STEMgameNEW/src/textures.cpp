@@ -1,8 +1,5 @@
 #include"textures.h"
 
-//////////
-#include<iostream>
-
 textureHandler::textureHandler(SDL_Renderer *renderer) :SDLRenderer(renderer) {
 	loadTextures();
 }
