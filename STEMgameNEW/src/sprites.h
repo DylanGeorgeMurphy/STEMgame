@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include "map.h"
 
 class sprite {
 public:
@@ -11,6 +12,7 @@ public:
 
 class player : public sprite {
 public:
+	player(map* m);
 	bool movingUp, movingDown, movingLeft, movingRight;
 	void update();
 	int getXTile();
@@ -18,6 +20,7 @@ public:
 	float getXOff();
 	float getYOff();
 private:
-	float vel = 0.1;
+	float vel = 0.05;
+	map* mapPointer;
 };
 

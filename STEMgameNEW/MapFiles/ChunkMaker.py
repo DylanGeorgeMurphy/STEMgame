@@ -1,7 +1,5 @@
 from PIL import Image
 
-
-
 BluePrint = Image.open(str(input("ImageName\n>")))
 FileName = str(input("FileName\n>"))
 

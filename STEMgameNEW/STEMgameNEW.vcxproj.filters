@@ -30,16 +30,13 @@
     <ClCompile Include="src\noise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\scenes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\sprites.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\textures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\tiles.cpp">
+    <ClCompile Include="src\mainscene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,16 +53,16 @@
     <ClInclude Include="src\noise.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\scenes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\sprites.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\textures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\tiles.h">
+    <ClInclude Include="src\mainscene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

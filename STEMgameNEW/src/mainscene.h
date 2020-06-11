@@ -1,41 +1,32 @@
 #pragma once
-#include"tiles.h"
 #include"textures.h"
 #include"map.h"
 #include"inputHandler.h"
+#include"ui.h"
 #include<sdl.h>
 
 
 class mainScene {
 public:
-	mainScene(SDL_Window*, SDL_Renderer*, tileHandler*, textureHandler*, int, int);
+	mainScene(SDL_Window*, SDL_Renderer*, textureHandler*, int, int, int*, int*);
 	~mainScene();
 	void renderTile(int x, int y, int ID);
 	void renderScene();
 	controlScheme* getControls();
 private:
 	player* currentPlayer;
+	windowHandler* windows;
 	controlScheme* controls;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 	textureHandler* textures;
-	tileHandler* tiles;
 	map* overworld;
 	int width;
 	int height;
+	int* mouseXPos;
+	int* mouseYPos;
 	int tileSize = 30;
 };
-
-///////////////////////////////////////////////
-
-class testCommand :public command {
-public:
-	virtual void execute() {
-		std::cout << "test" << std::endl;
-	}
-};
-
-////////////////////////////////
 
 class startUpCommand : public command {
 public:
@@ -99,4 +90,28 @@ public:
 	stopRightCommand(player*);
 private:
 	player* target;
+};
+
+class addWindowCommand : public command {
+public:
+	virtual void execute();
+	addWindowCommand(windowHandler*);
+private:
+	windowHandler* target;
+};
+
+class clickCommand : public command {
+public:
+	virtual void execute();
+	clickCommand(windowHandler*);
+private:
+	windowHandler* windows;
+};
+
+class unClickCommand : public command {
+public:
+	virtual void execute();
+	unClickCommand(windowHandler*);
+private:
+	windowHandler* windows;
 };

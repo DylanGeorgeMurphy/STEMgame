@@ -20,6 +20,11 @@ void inputHandler::handleInputs() {
 			case SDLK_d:
 				controls->dDown->execute();
 				break;
+			case SDLK_e:
+				controls->eDown->execute();
+				break;
+			case SDLK_F4:
+				fullscreen = (fullscreen?false:true);
 			}
 			break;
 
@@ -40,6 +45,23 @@ void inputHandler::handleInputs() {
 			}
 			break;
 
+		case SDL_MOUSEBUTTONDOWN:
+			switch (event.button.button) {
+			case SDL_BUTTON_LEFT:
+				controls->leftMouseDown->execute();
+			}
+			break;
+
+		case SDL_MOUSEBUTTONUP:
+			switch (event.button.button) {
+			case SDL_BUTTON_LEFT:
+				controls->leftMouseUp->execute();
+			}
+			break;
+
+		case SDL_MOUSEMOTION:
+			SDL_GetMouseState(&xPos, &yPos);
+			break;
 
 		case SDL_QUIT:
 			closed = true;
@@ -52,10 +74,13 @@ void inputHandler::setControls(controlScheme* c) {
 	controls = c;
 }
 
-inputHandler::inputHandler() : closed(false) {}
+inputHandler::inputHandler() : closed(false), fullscreen(false), xPos(0), yPos(0) {}
 
 bool inputHandler::getClosed() { return closed; }
+bool inputHandler::getFullscreen() { return fullscreen; }
 
+
+//set this to a default command not just null to avoid read access violations when a command is not defined by a scene
 controlScheme::controlScheme() :
 	wDown(NULL),
 	sDown(NULL),
@@ -64,7 +89,10 @@ controlScheme::controlScheme() :
 	wUp(NULL),
 	sUp(NULL),
 	aUp(NULL),
-	dUp(NULL)
+	dUp(NULL),
+	eDown(NULL),
+	leftMouseDown(NULL),
+	leftMouseUp(NULL)
 {};
 
 controlScheme::~controlScheme() {
@@ -76,4 +104,10 @@ controlScheme::~controlScheme() {
 	delete sDown;
 	delete aDown;
 	delete dDown;
+	delete eDown;
+	delete leftMouseDown;
+	delete leftMouseUp;
 }
+
+int inputHandler::getMouseXPos() { return(xPos); }
+int inputHandler::getMouseYPos() { return(yPos); }

@@ -11,7 +11,7 @@ private:
 	};
 
 	File cache[12];
-
+	int xPos, yPos;
 public:
 	void addItem(int);
 	bool inCache(int);

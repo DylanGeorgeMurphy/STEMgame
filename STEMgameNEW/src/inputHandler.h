@@ -6,9 +6,8 @@
 class command {
 public:
 	virtual ~command() {};
-	virtual void execute() = 0;
+	virtual void execute() {};
 };
-
 
 
 class controlScheme {
@@ -23,6 +22,9 @@ public:
 	command* sUp;
 	command* aUp;
 	command* dUp;
+	command* eDown;
+	command* leftMouseDown;
+	command* leftMouseUp;
 };
 
 class inputHandler {
@@ -30,9 +32,14 @@ public:
 	inputHandler();
 	void handleInputs();
 	bool getClosed();
+	bool getFullscreen();
+	int getMouseXPos();
+	int getMouseYPos();
 	void setControls(controlScheme*);
 private:
 	controlScheme* controls;
+	int xPos, yPos;
 	bool closed;
+	bool fullscreen;
 };
 

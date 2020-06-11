@@ -1,10 +1,11 @@
+//Dylan Murphy 2020
+
 #include<iostream>
 #include <SDL.h>
 #include <string>
 #include "inputHandler.h"
-#include "scenes.h"
+#include "mainscene.h"
 #include "textures.h"
-#include "tiles.h"
 
 template<class T>
 void renderScene(T* target) {
@@ -33,12 +34,9 @@ int main(int argc, char *argv[]) {
 		SDL_WINDOW_FULLSCREEN
 	);
 	SDL_Renderer *SDLRenderer = SDL_CreateRenderer(SDLWindow, -1, SDL_RENDERER_ACCELERATED);
-
 	inputHandler handler = inputHandler();
-
-	tileHandler tiles = tileHandler();
 	textureHandler textures = textureHandler(SDLRenderer);
-	mainScene scene = mainScene(SDLWindow, SDLRenderer, &tiles, &textures, width, height);
+	mainScene scene = mainScene(SDLWindow, SDLRenderer, &textures, width, height, &mouseXPos, &mouseYPos);
 
 	handler.setControls(scene.getControls());
 
@@ -48,10 +46,16 @@ int main(int argc, char *argv[]) {
 
 		Uint32 startingTick = SDL_GetTicks();
 
+		//clears screen
 		SDL_SetRenderDrawColor(SDLRenderer, 255, 0, 0, 255);
 		SDL_RenderClear(SDLRenderer);
 
+		//does keyboard controls
 		handler.handleInputs();
+
+		//gets the mouse position
+		mouseXPos = handler.getMouseXPos();
+		mouseYPos = handler.getMouseYPos();
 
 		renderScene(&scene);
 
@@ -59,7 +63,6 @@ int main(int argc, char *argv[]) {
 			SDL_Delay(1000 / frameRate - (SDL_GetTicks() - startingTick));
 		};
 
-		//presents the stuff
 		SDL_RenderPresent(SDLRenderer);
 	}
 
@@ -71,12 +74,13 @@ int main(int argc, char *argv[]) {
 }
 
 
-
 /*
 TO DO:
 
-add error checking when starting up
-add an error log
+allow for the player to stand behind a block/sprite
 
-let each scene have a different control scheme
+allow for correct window resizing
+
+change the chunk cache so that it is no longer cyclical
+change the chunk cache system so that it can have variable cache size
 */

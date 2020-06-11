@@ -10,11 +10,23 @@ void sprite::translate(float x, float y) {
 }
 
 void player::update() { 
-	if (movingUp)yPos -= vel;
-	if (movingDown)yPos += vel;
-	if (movingLeft)xPos -= vel;
-	if (movingRight)xPos += vel;
+	if (movingUp) {
+		if (mapPointer->getSolid(mapPointer->getTile(floor(xPos), floor(yPos - 0.1))) == false)yPos -= vel;
+	};
+
+	if (movingDown) {
+		if (mapPointer->getSolid(mapPointer->getTile(floor(xPos), floor(yPos + 0.1))) == false)yPos += vel;
+	};
+
+	if (movingLeft) {
+		if (mapPointer->getSolid(mapPointer->getTile(floor(xPos - 0.1), floor(yPos))) == false)xPos -= vel;
+	};
+
+	if (movingRight) {
+		if (mapPointer->getSolid(mapPointer->getTile(floor(xPos + 0.1), floor(yPos))) == false)xPos += vel;
+	};
 };
+
 
 int player::getXTile() {
 	return(floor(xPos));
@@ -31,5 +43,10 @@ float player::getXOff() {
 float player::getYOff() {
 	return(yPos-floor(yPos));
 }
+
+player::player(map* m) :mapPointer(m) {
+	xPos = -20;
+	yPos = 0;
+};
 
 

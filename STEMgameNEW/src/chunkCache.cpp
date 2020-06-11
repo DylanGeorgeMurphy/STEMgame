@@ -54,6 +54,7 @@ void chunkCache::addItem(int fileNumber) {
 
 	//names the cache
 	cache[11].fileNumber = fileNumber;
+
 }
 
 //checks cache for a filenumber
